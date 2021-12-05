@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "VGkWZ2YlT7zdAsDxK2vPGI2TLlUFeQKvIV+eTsBxU4R0tz3baqIy48o6cNCsxubROxRl5L0PqnhaNT/mc+gyUg==",
+  "success": true,
+  "projectFilePath": "D:\\projects\\RiderProjects\\HidSharpPollingWrapper\\ConsoleApp1\\ConsoleApp1.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\jpkessel\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.12\\microsoft.netcore.app.host.win-x64.5.0.12.nupkg.sha512"
+  ],
+  "logs": []
+}

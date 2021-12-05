@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HidSharpPollingWrapper", "HidSharpPollingWrapper\HidSharpPollingWrapper.csproj", "{898F41F4-8762-43E3-BF8C-AD162024FEB9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTest", "ConsoleTest\ConsoleTest.csproj", "{DFC6ED0F-4483-4E36-9C52-501A25E687CF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{898F41F4-8762-43E3-BF8C-AD162024FEB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{898F41F4-8762-43E3-BF8C-AD162024FEB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{898F41F4-8762-43E3-BF8C-AD162024FEB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{898F41F4-8762-43E3-BF8C-AD162024FEB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFC6ED0F-4483-4E36-9C52-501A25E687CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFC6ED0F-4483-4E36-9C52-501A25E687CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFC6ED0F-4483-4E36-9C52-501A25E687CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFC6ED0F-4483-4E36-9C52-501A25E687CF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
