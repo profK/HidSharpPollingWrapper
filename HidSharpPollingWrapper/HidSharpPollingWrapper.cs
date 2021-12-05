@@ -97,7 +97,13 @@ namespace HidSharpPolling
             
         }
 
-        
+        //TODO: Change to extension method on HidDevice
+        public static uint GetTopLevelUsage(HidDevice dev)
+        {
+            var reportDescriptor = dev.GetReportDescriptor();
+            var ditem = reportDescriptor.DeviceItems.FirstOrDefault();
+            return ditem.Usages.GetAllValues().FirstOrDefault();
+        }
     }
 
    

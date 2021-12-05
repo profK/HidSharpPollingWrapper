@@ -33,6 +33,14 @@ namespace HidSharpPolling
                 return values.Values.ToArray();
             }
         }
+        
+
+        public uint TopLevelUsage {
+            get
+            {
+                return HidSharpPollingWrapper.GetTopLevelUsage(_hidDevice);
+            }
+        }
 
         public void SetValue(int idx, DataValue value)
         {

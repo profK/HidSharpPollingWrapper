@@ -9,34 +9,39 @@ using HidSharpPolling;
 
 class Program
 {
-    private static uint GetTopLevelUsage(HidDevice dev)
-    {
-        var reportDescriptor = dev.GetReportDescriptor();
-        var ditem = reportDescriptor.DeviceItems.FirstOrDefault();
-        return ditem.Usages.GetAllValues().FirstOrDefault();
-    }
+    
     static void Main(string[] argv)
     {
         HidSharpPollingWrapper wrapper =
             new HidSharpPollingWrapper(DeviceList.Local, device =>
             {
-                switch (GetTopLevelUsage(device) >> 16)
+                uint devUsage = HidSharpPollingWrapper.GetTopLevelUsage(device) ;
+                if ((devUsage >> 16)==1) // desktop device
                 {
-                    case 2:
-                    case 4:
-                    case 6: 
-                        return true;
-                      
-                    default:
-                        return false;
-                      
+                    switch (devUsage & 0xFFFF)
+                    {
+                        case 2:
+                        case 4:
+                        case 6:
+                            return true;
+
+                        default:
+                            return false;
+                    }
+
+                }
+                else
+                {
+                    return false;
                 }
             });
         while (true)
         {
             foreach (var deviceRec in wrapper.Devices)
             {
-                Console.WriteLine(deviceRec.Name);
+                uint devUsage = deviceRec.TopLevelUsage;
+                Console.Write(((Usage)devUsage).ToString());
+                Console.WriteLine("("+deviceRec.Name+")");
                 foreach (var value in deviceRec.Values)
                 {
                     Console.Write("  ");
