@@ -1,5 +1,7 @@
-﻿using System.Collections.Concurrent;
+﻿using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using HidSharp;
 using HidSharp.Reports;
 
@@ -16,10 +18,28 @@ namespace HidSharpPolling
             _hidDevice = device;
         }
 
+        public string Name
+        {
+            get
+            {
+                return _hidDevice.GetFriendlyName();
+            }
+        }
+        
+        public DataValue[] Values
+        {
+            get
+            {
+                return values.Values.ToArray();
+            }
+        }
+
         public void SetValue(int idx, DataValue value)
         {
             values.AddOrUpdate(idx, value,
                 (i, dataValue) => dataValue);
         }
+
+       
     }
 }

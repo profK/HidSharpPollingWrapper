@@ -16,6 +16,14 @@ namespace HidSharpPolling
 
         private ConcurrentDictionary<string, InputRecord> devices =
             new ConcurrentDictionary<string, InputRecord>();
+
+        public InputRecord[] Devices
+        {
+            get
+            {
+                return devices.Values.ToArray();
+            }
+        }
         
         public HidSharpPollingWrapper(DeviceList list,Func<HidDevice,bool> predicate = null)
         {
@@ -78,7 +86,10 @@ namespace HidSharpPolling
 
         private void RcvrOnStopped(object? sender, EventArgs e)
         {
-            //nop
+            HidDeviceInputReceiver reciever = sender as HidDeviceInputReceiver;
+            HidDevice device = reciever.Stream.Device;
+            InputRecord removedRecord;
+            devices.Remove(device.GetSerialNumber(), out removedRecord);
         }
 
         private void RcvrOnStarted(object? sender, EventArgs e)
