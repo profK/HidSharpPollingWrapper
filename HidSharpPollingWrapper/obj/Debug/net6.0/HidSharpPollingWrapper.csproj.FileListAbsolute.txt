@@ -1,0 +1,12 @@
+D:\projects\RiderProjects\HidSharpPollingWrapper\HidSharpPollingWrapper\bin\Debug\net6.0\HidSharpPollingWrapper.deps.json
+D:\projects\RiderProjects\HidSharpPollingWrapper\HidSharpPollingWrapper\bin\Debug\net6.0\HidSharpPollingWrapper.dll
+D:\projects\RiderProjects\HidSharpPollingWrapper\HidSharpPollingWrapper\bin\Debug\net6.0\ref\HidSharpPollingWrapper.dll
+D:\projects\RiderProjects\HidSharpPollingWrapper\HidSharpPollingWrapper\bin\Debug\net6.0\HidSharpPollingWrapper.pdb
+D:\projects\RiderProjects\HidSharpPollingWrapper\HidSharpPollingWrapper\obj\Debug\net6.0\HidSharpPollingWrapper.csproj.AssemblyReference.cache
+D:\projects\RiderProjects\HidSharpPollingWrapper\HidSharpPollingWrapper\obj\Debug\net6.0\HidSharpPollingWrapper.GeneratedMSBuildEditorConfig.editorconfig
+D:\projects\RiderProjects\HidSharpPollingWrapper\HidSharpPollingWrapper\obj\Debug\net6.0\HidSharpPollingWrapper.AssemblyInfoInputs.cache
+D:\projects\RiderProjects\HidSharpPollingWrapper\HidSharpPollingWrapper\obj\Debug\net6.0\HidSharpPollingWrapper.AssemblyInfo.cs
+D:\projects\RiderProjects\HidSharpPollingWrapper\HidSharpPollingWrapper\obj\Debug\net6.0\HidSharpPollingWrapper.csproj.CoreCompileInputs.cache
+D:\projects\RiderProjects\HidSharpPollingWrapper\HidSharpPollingWrapper\obj\Debug\net6.0\HidSharpPollingWrapper.dll
+D:\projects\RiderProjects\HidSharpPollingWrapper\HidSharpPollingWrapper\obj\Debug\net6.0\ref\HidSharpPollingWrapper.dll
+D:\projects\RiderProjects\HidSharpPollingWrapper\HidSharpPollingWrapper\obj\Debug\net6.0\HidSharpPollingWrapper.pdb

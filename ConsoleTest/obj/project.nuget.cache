@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "SwGmESm73kxa10S7xmi2s2ebGoAl8dpUPJvlRPC/8gwsSjffMsDDbtm0nylyKbMKiPwS5VtZ4QCX7MLuW2+YKw==",
+  "success": true,
+  "projectFilePath": "D:\\projects\\RiderProjects\\HidSharpPollingWrapper\\ConsoleTest\\ConsoleTest.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\jpkessel\\.nuget\\packages\\hidsharpcore\\1.2.1.1\\hidsharpcore.1.2.1.1.nupkg.sha512"
+  ],
+  "logs": []
+}
