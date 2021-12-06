@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using HidSharp;
 using HidSharp.Reports;
 using HidSharp.Reports.Input;
+using HidSharp.Utility;
 
 namespace HidSharpPolling
 {
@@ -29,8 +30,11 @@ namespace HidSharpPolling
         {
             selectionPredicate = predicate;
             devList = list;
-            DevListOnChanged(devList,new DeviceListChangedEventArgs()); // initial config
+            HidSharpDiagnostics.EnableTracing = true;
+            HidSharpDiagnostics.PerformStrictChecks = true;
+
             devList.Changed += DevListOnChanged;
+            DevListOnChanged(devList,new DeviceListChangedEventArgs()); // initial config
         }
 
         private void DevListOnChanged(object? sender, DeviceListChangedEventArgs e)
@@ -42,9 +46,11 @@ namespace HidSharpPolling
                 {
                     if ((selectionPredicate==null)||(selectionPredicate(device))) //Desktop Device
                     {
-                        if (!devices.ContainsKey(device.GetSerialNumber()))
+                       Console.WriteLine("Trying add of "+device.GetFriendlyName());
+                       string devKey = device.DevicePath;
+                        if (!devices.ContainsKey(devKey))
                         {
-                            devices.TryAdd(device.GetSerialNumber(),
+                            devices.TryAdd(devKey,
                                 new InputRecord(device));
                             // start listenign to it
                             HidDeviceInputReceiver rcvr = 
@@ -59,7 +65,7 @@ namespace HidSharpPolling
                 }
                 catch (Exception ex)
                 {
-                   //nop just ignore if we cannat register it properly
+                   Console.WriteLine(ex.Message);
                 }
             }
         }
@@ -74,9 +80,10 @@ namespace HidSharpPolling
             if (reciever.TryRead(inbuff, 0, out report))//should succeed
             {
                 var parser = report.DeviceItem.CreateDeviceItemInputParser();
+                parser.TryParseReport(inbuff, 0,report);
                 for (int idx = 0; idx < parser.ValueCount; idx++)
                 {
-                    devices[device.GetSerialNumber()].SetValue(idx,
+                    devices[device.DevicePath].SetValue(idx,
                             parser.GetValue(idx));
                 }
             }

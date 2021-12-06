@@ -18,7 +18,8 @@ class Program
                 uint devUsage = HidSharpPollingWrapper.GetTopLevelUsage(device) ;
                 if ((devUsage >> 16)==1) // desktop device
                 {
-                    switch (devUsage & 0xFFFF)
+                    uint usage = (devUsage & 0xFFFF);
+                    switch (usage)
                     {
                         case 2:
                         case 4:
@@ -37,6 +38,9 @@ class Program
             });
         while (true)
         {
+            Console.Write("Press a key to poll:");
+            Console.ReadKey();
+            Console.WriteLine();
             foreach (var deviceRec in wrapper.Devices)
             {
                 uint devUsage = deviceRec.TopLevelUsage;
@@ -47,15 +51,15 @@ class Program
                     Console.Write("  ");
                     Usage usage = (Usage) (value.Usages.FirstOrDefault());
                     Console.Write(usage.ToString());
-                    if (value.DataItem.IsBoolean)
+                    if (value.IsBoolean)
                     {
                         Console.Write("  Digital: ");
-                        Console.WriteLine(value.GetLogicalValue());
+                        Console.WriteLine(value.DigitalValue);
                     }
                     else
                     {
                         Console.Write("  Analog: ");
-                        Console.WriteLine(value.GetFractionalValue());
+                        Console.WriteLine(value.AnalogValue);
                     }
                 }
             }

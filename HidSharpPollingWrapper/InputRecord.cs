@@ -7,12 +7,29 @@ using HidSharp.Reports;
 
 namespace HidSharpPolling
 {
+    public class InputValue
+    {
+        public InputValue(DataValue dv)
+        {
+            IsBoolean = dv.DataItem.IsBoolean;
+            AnalogValue = dv.GetFractionalValue();
+            DigitalValue = dv.GetLogicalValue();
+            Usages = dv.Usages;
+        }
+
+        public int DigitalValue { get;  }
+
+        public double AnalogValue { get; }
+
+        public bool IsBoolean { get; }
+        public IEnumerable<uint> Usages { get; }
+    }
     public class InputRecord
     {
         private HidDevice _hidDevice;
 
-        private ConcurrentDictionary<int, DataValue> values =
-            new ConcurrentDictionary<int, DataValue>();
+        private ConcurrentDictionary<int, InputValue> values =
+            new ConcurrentDictionary<int, InputValue>();
         public InputRecord(HidDevice device)
         {
             _hidDevice = device;
@@ -26,7 +43,7 @@ namespace HidSharpPolling
             }
         }
         
-        public DataValue[] Values
+        public InputValue[] Values
         {
             get
             {
@@ -44,8 +61,8 @@ namespace HidSharpPolling
 
         public void SetValue(int idx, DataValue value)
         {
-            values.AddOrUpdate(idx, value,
-                (i, dataValue) => dataValue);
+            values.AddOrUpdate(idx, new InputValue(value),
+                (i, inputValue) => new InputValue(value)) ;
         }
 
        
