@@ -21,9 +21,8 @@ class Program
                     uint usage = (devUsage & 0xFFFF);
                     switch (usage)
                     {
-                        case 2:
+
                         case 4:
-                        case 6:
                             return true;
 
                         default:
