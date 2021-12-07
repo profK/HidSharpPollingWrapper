@@ -7,6 +7,8 @@ using HidSharp;
 using HidSharp.Reports;
 using HidSharp.Reports.Input;
 using HidSharp.Utility;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace HidSharpPolling
 {
@@ -14,6 +16,7 @@ namespace HidSharpPolling
     {
         private DeviceList devList;
         private Func<HidDevice, bool> selectionPredicate;
+        private ILogger _logger;
 
         private ConcurrentDictionary<string, InputRecord> devices =
             new ConcurrentDictionary<string, InputRecord>();
@@ -28,6 +31,13 @@ namespace HidSharpPolling
         
         public HidSharpPollingWrapper(DeviceList list,Func<HidDevice,bool> predicate = null)
         {
+            // start logging
+            IHost host = Host.CreateDefaultBuilder().Build();
+            host.RunAsync();
+            ILoggerFactory loggerFactory = LoggerFactory.Create(builder =>
+                builder.AddEventLog());
+            _logger = loggerFactory.CreateLogger("HidSharpPollingWrapper");
+            //initiate polling
             selectionPredicate = predicate;
             devList = list;
             HidSharpDiagnostics.EnableTracing = true;
@@ -47,13 +57,12 @@ namespace HidSharpPolling
                     if ((selectionPredicate==null)||(selectionPredicate(device))) //Desktop Device
                     {
                         var usage = GetTopLevelUsage(device);
-                        Console.WriteLine("Trying add of "+
-                                          ((Usage) usage).ToString());
-                       string devKey = device.DevicePath;
+                        string devKey = device.DevicePath;
                         if (!devices.ContainsKey(devKey))
                         {
-                            devices.TryAdd(devKey,
-                                new InputRecord(device));
+                            InputRecord inputRecord = new InputRecord(device);
+                            devices.TryAdd(devKey,inputRecord
+                               );
                             // start listenign to it
                             HidDeviceInputReceiver rcvr = 
                                 device.GetReportDescriptor().CreateHidDeviceInputReceiver();
@@ -69,18 +78,19 @@ namespace HidSharpPolling
                             {
                                 //can cast cause came from HID device
                                 rcvr.Start((HidStream)istream);
+                                _logger.LogInformation("Listening to device: "+inputRecord.Name);
                             }
                             else 
-                                Console.WriteLine("Device open failed: "+
+                                _logger.LogWarning("Device open failed: "+
                                                   exception.Message);
                         }
 
-                        Console.WriteLine("Added");
+                        
                     }
                 }
                 catch (Exception ex)
                 {
-                   Console.WriteLine("AddFailure: "+ex.Message);
+                   _logger.LogWarning("AddFailure: "+ex.Message);
                 }
             }
         }

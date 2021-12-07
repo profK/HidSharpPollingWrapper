@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,16 +31,30 @@ namespace HidSharpPolling
 
         private ConcurrentDictionary<int, InputValue> values =
             new ConcurrentDictionary<int, InputValue>();
+
+        private Usage _usage;
+        private string _friendlyName;
+
         public InputRecord(HidDevice device)
         {
             _hidDevice = device;
+            _usage = (Usage)HidSharpPollingWrapper.GetTopLevelUsage(_hidDevice);
+            try
+            {
+                // this can exception if not supported by device
+                _friendlyName = "(" + _hidDevice.GetFriendlyName() + ")";
+            }
+            catch (Exception e)
+            {
+                _friendlyName = "";
+            }
         }
 
         public string Name
         {
             get
             {
-                return _hidDevice.GetFriendlyName();
+                return _usage+_friendlyName;
             }
         }
         
