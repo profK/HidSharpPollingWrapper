@@ -43,9 +43,21 @@ class Program
             Console.WriteLine();
             foreach (var deviceRec in wrapper.Devices)
             {
-                uint devUsage = deviceRec.TopLevelUsage;
-                Console.Write(((Usage)devUsage).ToString());
-                Console.WriteLine("("+deviceRec.Name+")");
+                try
+                {
+                    uint devUsage = deviceRec.TopLevelUsage;
+                    Console.Write(((Usage) devUsage).ToString());
+                    Console.Write("(" + deviceRec.Name + ")");
+                }
+                catch (Exception e)
+                {
+                    //nop
+                }
+                finally
+                {
+                    Console.WriteLine();
+                }
+
                 foreach (var value in deviceRec.Values)
                 {
                     Console.Write("  ");

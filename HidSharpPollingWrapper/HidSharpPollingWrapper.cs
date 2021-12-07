@@ -46,7 +46,9 @@ namespace HidSharpPolling
                 {
                     if ((selectionPredicate==null)||(selectionPredicate(device))) //Desktop Device
                     {
-                       Console.WriteLine("Trying add of "+device.GetFriendlyName());
+                        var usage = GetTopLevelUsage(device);
+                        Console.WriteLine("Trying add of "+
+                                          ((Usage) usage).ToString());
                        string devKey = device.DevicePath;
                         if (!devices.ContainsKey(devKey))
                         {
@@ -58,14 +60,27 @@ namespace HidSharpPolling
                             rcvr.Started += RcvrOnStarted;
                             rcvr.Stopped += RcvrOnStopped;
                             rcvr.Received += RcvrOnReceived;
-                            HidStream istream = device.Open();
-                            rcvr.Start(istream);
+                            OpenConfiguration config = new OpenConfiguration();
+                            config.SetOption(OpenOption.Exclusive, false);
+                            config.SetOption(OpenOption.Interruptible, true);
+                            DeviceStream istream=null;
+                            Exception exception;
+                            if (device.TryOpen(config, out istream, out exception))
+                            {
+                                //can cast cause came from HID device
+                                rcvr.Start((HidStream)istream);
+                            }
+                            else 
+                                Console.WriteLine("Device open failed: "+
+                                                  exception.Message);
                         }
+
+                        Console.WriteLine("Added");
                     }
                 }
                 catch (Exception ex)
                 {
-                   Console.WriteLine(ex.Message);
+                   Console.WriteLine("AddFailure: "+ex.Message);
                 }
             }
         }
